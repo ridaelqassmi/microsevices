@@ -1,6 +1,5 @@
 package com.elqassmi.controller;
 
-import com.elqassmi.domain.ProductRecommendationKey;
 import com.elqassmi.dto.request.RecommandationRequest;
 import com.elqassmi.dto.response.RecommandationResponse;
 import com.elqassmi.services.RecommandationServices;
@@ -28,7 +27,7 @@ public class RecommendationController {
     @PostMapping
     public ResponseEntity<Void> addRecommendation(@RequestBody RecommandationRequest recommandationRequest) {
         logger.info("*****************Location {}", recommandationRequest.toString());
-        ProductRecommendationKey id = RecommendationService.addRecommendation(recommandationRequest);
+        long id = RecommendationService.addRecommendation(recommandationRequest);
         //logger.info("*************Location : after persistence");
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}").buildAndExpand(id).toUri();
@@ -36,19 +35,18 @@ public class RecommendationController {
 
     }
 
-    @PutMapping("/{RecommendationId}/{ProductId}")
+    @PutMapping("/{RecommendationId}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateLocation(@Valid @RequestBody RecommandationRequest recommandationRequest,
-                               @PathVariable("RecommendationId") long RecommendationId,
-                               @PathVariable("ProductId") long productId ) {
-        RecommendationService.updateLocation(RecommendationId, productId,recommandationRequest);
+                               @PathVariable("RecommendationId") long RecommendationId) {
+        RecommendationService.updateLocation(RecommendationId, recommandationRequest);
 
     }
 
-    @DeleteMapping("/{RecommendationId}/{ProductId}")
+    @DeleteMapping("/{RecommendationId}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRecommendation(@PathVariable("RecommendationId") long RecommendationId,@PathVariable("ProductId") long ProductId) {
-        RecommendationService.deleteRecommendation(RecommendationId,ProductId);
+    public void deleteRecommendation(@PathVariable("RecommendationId") long RecommendationId) {
+        RecommendationService.deleteRecommendation(RecommendationId);
     }
 
     @GetMapping
@@ -59,12 +57,17 @@ public class RecommendationController {
 
     }
 
-    @GetMapping("/{RecommendationId}/{ProductId}")
+    @GetMapping("/{RecommendationId}")
     public ResponseEntity<RecommandationResponse> getRecommandationById(@PathVariable("RecommendationId") long RecommendationId,
                                                                         @PathVariable("ProductId") long productId) {
 
-        RecommandationResponse product = RecommendationService.getRecommendationById(RecommendationId,productId);
+        RecommandationResponse product = RecommendationService.getRecommendationById(RecommendationId);
         return ResponseEntity.ok().body(product);
     }
+
+
+
+
+
 
 }

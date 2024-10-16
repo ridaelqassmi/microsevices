@@ -1,7 +1,6 @@
 package com.elqassmi.domain;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +8,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor @AllArgsConstructor @Data
 public class Recommandation {
-    @EmbeddedId
-    //private ProductRecommendationKey productRecommendationKey;
-    private long productId;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long recommendationId;
+
+    private long productId;
 
     private String author;
     private String role;

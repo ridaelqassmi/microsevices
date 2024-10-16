@@ -1,7 +1,6 @@
 package com.elqassmi.domain;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Review {
-    @EmbeddedId
-    private ProductReviewKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long reviewId;
+    private long productId;
+
     private String author;
     private String subject;
     private String content;

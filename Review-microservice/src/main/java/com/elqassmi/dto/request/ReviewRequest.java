@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ReviewRequest {
-    private ProductReviewKey id;
-
+    private long reviewId;
+    private long productId;
     private String author;
     private String Subject;
     private String Content;

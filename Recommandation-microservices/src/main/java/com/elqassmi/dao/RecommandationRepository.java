@@ -1,13 +1,15 @@
 package com.elqassmi.dao;
 
-import com.elqassmi.domain.ProductRecommendationKey;
 import com.elqassmi.domain.Recommandation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
-public interface RecommandationRepository extends JpaRepository<Recommandation, ProductRecommendationKey> {
-    public Recommandation findByProductId(long id);
+public interface RecommandationRepository extends JpaRepository<Recommandation, Long> {
 
 
+    List<Recommandation> findAllByProductId(long recommendationId);
 }

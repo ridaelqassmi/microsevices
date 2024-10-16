@@ -1,6 +1,5 @@
 package com.elqassmi.dto.response;
 
-import com.elqassmi.domain.ProductRecommendationKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class RecommandationResponse {
-    private ProductRecommendationKey productRecommendationKey;
+
+    private long recommendationId;
+
+    private long productId;
     private String author;
     private String role;
     private String content;

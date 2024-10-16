@@ -1,7 +1,6 @@
 package com.elqassmi.services;
 
 import com.elqassmi.dao.ReviewRepository;
-import com.elqassmi.domain.ProductReviewKey;
 import com.elqassmi.domain.Review;
 import com.elqassmi.dto.request.ReviewRequest;
 import com.elqassmi.dto.response.ReviewResponse;
@@ -17,15 +16,34 @@ import java.util.Optional;
 public class ReviewServicesImp implements ReviewServices {
     @Autowired
     private ReviewRepository reviewRepository;
+
     @Override
-    public ProductReviewKey addReview(ReviewRequest reviewRequest) {
+    public List<ReviewResponse> getAllReviewByProductId(long id) {
+        List<Review> reviews = reviewRepository.findAllByProductId(id);
+        List<ReviewResponse> reviewResponses = new ArrayList<>();
+        for (Review review : reviews) {
+            ReviewResponse reviewResponse = new ReviewResponse();
+            reviewResponse.setReviewId(review.getReviewId());
+            reviewResponse.setProductId(review.getProductId());
+            reviewResponse.setSubject(review.getSubject());
+            reviewResponse.setAuthor(review.getAuthor());
+            reviewResponse.setContent(review.getContent());
+            reviewResponses.add(reviewResponse);
+        }
+        return reviewResponses;
+    }
+
+    @Override
+    public long addReview(ReviewRequest reviewRequest) {
         Review review = new Review();
         review.setAuthor(reviewRequest.getAuthor());
         review.setContent(reviewRequest.getContent());
         review.setSubject(reviewRequest.getSubject());
-        review.setId(reviewRequest.getId());
+        review.setContent(reviewRequest.getContent());
+        review.setProductId(reviewRequest.getProductId());
+
         reviewRepository.save(review);
-        return review.getId();
+        return review.getReviewId();
     }
 
     @Override
@@ -36,30 +54,31 @@ public class ReviewServicesImp implements ReviewServices {
             ReviewResponse reviewResponse = new ReviewResponse();
             reviewResponse.setAuthor(rev.getAuthor());
             reviewResponse.setSubject(rev.getSubject());
-            reviewResponse.setId(rev.getId());
-            reviewResponse.setId(rev.getId());
+            reviewResponse.setProductId(rev.getProductId());
+            reviewResponse.setReviewId(rev.getReviewId());
+
             reviewResponses.add(reviewResponse);
         }
         return reviewResponses;
     }
 
     @Override
-    public ReviewResponse getReviewById(long reviewID, long productId) {
-        ProductReviewKey productReviewKey = new ProductReviewKey(reviewID,productId);
+    public ReviewResponse getReviewById(long reviewID) {
 
-        Optional<Review> review = reviewRepository.findById(productReviewKey);
+        Optional<Review> review = reviewRepository.findById(reviewID);
         ReviewResponse reviewResponse = new ReviewResponse();
         if (review.isPresent()) {
             Review rev = review.get();
             reviewResponse.setAuthor(rev.getAuthor());
             reviewResponse.setSubject(rev.getSubject());
-            reviewResponse.setId(rev.getId());
+            reviewResponse.setProductId(rev.getProductId());
+            reviewResponse.setReviewId(rev.getReviewId());
             reviewResponse.setContent(rev.getContent());
 
 
 
         }else {
-            throw new ReviewNotFoundException("review with id = "+ productReviewKey+ " does not exist");
+            throw new ReviewNotFoundException("review with id = "+ reviewID+ " does not exist");
         }
 
 
@@ -67,27 +86,24 @@ public class ReviewServicesImp implements ReviewServices {
     }
 
     @Override
-    public void deleteReview(long reviewID, long productId) {
-        ProductReviewKey productReviewKey = new ProductReviewKey(reviewID,productId);
-        Optional<Review> review1 = reviewRepository.findById(productReviewKey);
+    public void deleteReview(long reviewID) {
+        Optional<Review> review1 = reviewRepository.findById(reviewID);
         review1.ifPresent(review -> reviewRepository.delete(review));
     }
 
     @Override
-    public void updateReview(long reviewID, long productId, ReviewRequest reviewRequest) {
-        ProductReviewKey productReviewKey = new ProductReviewKey(reviewID,productId);
+    public void updateReview(long reviewID, ReviewRequest reviewRequest) {
 
-        Optional<Review> review1 = reviewRepository.findById(productReviewKey);
+        Optional<Review> review1 = reviewRepository.findById(reviewID);
         if (review1.isPresent()) {
             Review review2 = review1.get();
 
-            review2.setId(reviewRequest.getId());
+            review2.setReviewId(reviewRequest.getReviewId());
+            review2.setProductId(reviewRequest.getProductId());
             review2.setSubject(reviewRequest.getSubject());
             review2.setAuthor(reviewRequest.getAuthor());
             review2.setContent(reviewRequest.getContent());
             reviewRepository.save(review2);
-
-
         }
 
     }

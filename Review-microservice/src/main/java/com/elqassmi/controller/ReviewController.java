@@ -25,9 +25,9 @@ public class ReviewController {
     Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
     @PostMapping
-    public ResponseEntity<Void> addRecommendation(@RequestBody ReviewRequest reviewRequest) {
-        logger.info("*****************Location {}", reviewRequest.toString());
-        ProductReviewKey id = reviewServices.addReview(reviewRequest);
+    public ResponseEntity<Void> addReview(@RequestBody ReviewRequest reviewRequest) {
+        logger.info("*****************Review {}", reviewRequest.toString());
+        long id = reviewServices.addReview(reviewRequest);
         //logger.info("*************Location : after persistence");
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}").buildAndExpand(id).toUri();
@@ -35,34 +35,32 @@ public class ReviewController {
 
     }
 
-    @PutMapping("/{ReviewID}/{ProductId}")
+    @PutMapping("/{ReviewID}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateLocation(@Valid @RequestBody ReviewRequest reviewRequest,
-                               @PathVariable("ReviewID") long reviewID,
-                               @PathVariable("ProductId") long productId ) {
-        reviewServices.updateReview(reviewID, productId,reviewRequest);
+    public void updateReview(@Valid @RequestBody ReviewRequest reviewRequest,
+                               @PathVariable("ReviewID") long reviewID) {
+        reviewServices.updateReview(reviewID,reviewRequest);
 
     }
 
-    @DeleteMapping("/{ReviewID}/{ProductId}")
+    @DeleteMapping("/{ReviewID}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRecommendation(@PathVariable("ReviewID") long reviewID,@PathVariable("ProductId") long ProductId) {
-        reviewServices.deleteReview(reviewID,ProductId);
+    public void deleteReview(@PathVariable("ReviewID") long reviewID) {
+        reviewServices.deleteReview(reviewID);
     }
 
     @GetMapping
-    public List<ReviewResponse> getAllRecommandations() {
+    public List<ReviewResponse> getAllReviews() {
         List<ReviewResponse> allReviews = new ArrayList<>();
         allReviews= reviewServices.getAllReviews();
         return allReviews;
 
     }
 
-    @GetMapping("/{ReviewID}/{ProductId}")
-    public ResponseEntity<ReviewResponse> getRecommandationById(@PathVariable("ReviewID") long reviewID,
-                                                                        @PathVariable("ProductId") long productId) {
+    @GetMapping("/{ReviewID}")
+    public ResponseEntity<ReviewResponse> getReviewById(@PathVariable("ReviewID") long reviewID) {
 
-        ReviewResponse review = reviewServices.getReviewById(reviewID,productId);
+        ReviewResponse review = reviewServices.getReviewById(reviewID);
         return ResponseEntity.ok().body(review);
     }
 

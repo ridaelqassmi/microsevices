@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ReviewServices {
-    ProductReviewKey addReview(ReviewRequest reviewRequest);
+     List<ReviewResponse> getAllReviewByProductId(long id) ;
+
+    long addReview(ReviewRequest reviewRequest);
 
     List<ReviewResponse> getAllReviews();
 
-    ReviewResponse getReviewById(long reviewID, long productId);
+    ReviewResponse getReviewById(long reviewID);
 
-    void deleteReview(long reviewID, long productId);
+    void deleteReview(long reviewID);
 
-    void updateReview(long reviewID, long productId, @Valid ReviewRequest reviewRequest);
+    void updateReview(long reviewID, @Valid ReviewRequest reviewRequest);
 }

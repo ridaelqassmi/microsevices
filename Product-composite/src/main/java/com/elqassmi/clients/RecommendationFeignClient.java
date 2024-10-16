@@ -1,4 +1,4 @@
 package com.elqassmi.clients;
 
-public class RecommendationFeignClient {
+public interface RecommendationFeignClient {
 }
