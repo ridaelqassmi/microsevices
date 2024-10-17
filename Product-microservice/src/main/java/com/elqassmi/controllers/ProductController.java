@@ -26,8 +26,8 @@ public class ProductController {
     Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @PostMapping
-    public ResponseEntity<Void> addProduct(@RequestBody ProductRequest product) {
-        logger.info("*****************Location {}", product.toString());
+    public ResponseEntity<Void> addProduct(@Valid @RequestBody ProductRequest product) {
+        logger.info("*****************product {}", product.toString());
         long id = productService.addproduct(product);
         //logger.info("*************Location : after persistence");
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
@@ -38,7 +38,8 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateProduct(@Valid @RequestBody ProductRequest product, @PathVariable("id") long productId) {
+    public void updateProduct(@Valid @RequestBody ProductRequest product,
+                              @PathVariable("id") long productId) {
         productService.updateProduct(product, productId);
 
     }

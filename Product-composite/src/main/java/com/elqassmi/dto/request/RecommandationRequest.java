@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ReviewRequest {
-    private long reviewId;
+@NoArgsConstructor
+public class RecommandationRequest {
+    private long recommendationId;
+
     private long productId;
     private String author;
-    private String Subject;
-    private String Content;
+    private String role;
+    private String content;
 }

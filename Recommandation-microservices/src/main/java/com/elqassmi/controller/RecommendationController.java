@@ -25,7 +25,7 @@ public class RecommendationController {
     Logger logger = LoggerFactory.getLogger(RecommendationController.class);
 
     @PostMapping
-    public ResponseEntity<Void> addRecommendation(@RequestBody RecommandationRequest recommandationRequest) {
+    public ResponseEntity<Void> addRecommendation(@Valid @RequestBody RecommandationRequest recommandationRequest) {
         logger.info("*****************Location {}", recommandationRequest.toString());
         long id = RecommendationService.addRecommendation(recommandationRequest);
         //logger.info("*************Location : after persistence");
@@ -58,8 +58,7 @@ public class RecommendationController {
     }
 
     @GetMapping("/{RecommendationId}")
-    public ResponseEntity<RecommandationResponse> getRecommandationById(@PathVariable("RecommendationId") long RecommendationId,
-                                                                        @PathVariable("ProductId") long productId) {
+    public ResponseEntity<RecommandationResponse> getRecommandationById(@PathVariable("RecommendationId") long RecommendationId) {
 
         RecommandationResponse product = RecommendationService.getRecommendationById(RecommendationId);
         return ResponseEntity.ok().body(product);

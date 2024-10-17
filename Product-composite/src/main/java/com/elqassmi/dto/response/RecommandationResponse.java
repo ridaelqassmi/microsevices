@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class ReviewResponse {
-    private long reviewId;
+@AllArgsConstructor
+public class RecommandationResponse {
+    private long recommandationId;
     private long productId;
     private String author;
-    private String Subject;
-    private String Content;
+    private String role;
+    private String content;
+
 }

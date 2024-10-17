@@ -1,6 +1,5 @@
 package com.elqassmi.controller;
 
-import com.elqassmi.domain.ProductReviewKey;
 import com.elqassmi.dto.request.ReviewRequest;
 import com.elqassmi.dto.response.ReviewResponse;
 import com.elqassmi.services.ReviewServices;
@@ -25,10 +24,9 @@ public class ReviewController {
     Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
     @PostMapping
-    public ResponseEntity<Void> addReview(@RequestBody ReviewRequest reviewRequest) {
+    public ResponseEntity<Void> addReview(@Valid @RequestBody ReviewRequest reviewRequest) {
         logger.info("*****************Review {}", reviewRequest.toString());
         long id = reviewServices.addReview(reviewRequest);
-        //logger.info("*************Location : after persistence");
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri ).build();

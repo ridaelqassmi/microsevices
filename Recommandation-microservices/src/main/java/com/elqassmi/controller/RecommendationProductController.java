@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/product/{id}/recommendation/")
+@RequestMapping("/api/products")
 public class RecommendationProductController {
 
     @Autowired
     private RecommandationServices recommendationServices;
-    @GetMapping
+    @GetMapping("/{id}/recommendations")
     public List<RecommandationResponse> getRecommendation(@PathVariable long id) {
         return recommendationServices.getRecommendationByProductID(id);
 

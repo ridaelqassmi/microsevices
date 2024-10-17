@@ -1,10 +1,8 @@
 package com.elqassmi.services;
 
-import com.elqassmi.domain.ProductReviewKey;
 import com.elqassmi.dto.request.ReviewRequest;
 import com.elqassmi.dto.response.ReviewResponse;
 import jakarta.validation.Valid;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

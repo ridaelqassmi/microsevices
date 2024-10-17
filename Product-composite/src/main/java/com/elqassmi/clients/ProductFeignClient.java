@@ -15,20 +15,20 @@ import java.util.List;
 public interface ProductFeignClient {
     @PostMapping("api/products")
 
-    public ResponseEntity<Void> addProduct(@RequestBody ProductRequest product);
+     ResponseEntity<Void> addProduct(@RequestBody ProductRequest product);
 
     @PutMapping("api/products/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateProduct(@RequestBody ProductRequest product, @PathVariable("id") long productId);
+     void updateProduct(@RequestBody ProductRequest product, @PathVariable("id") long productId);
 
     @DeleteMapping("api/products/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable long id) ;
+    void deleteProduct(@PathVariable long id) ;
     @GetMapping("api/products")
-    public List<ProductResponse> getAllProducts();
+    List<ProductResponse> getAllProducts();
 
     @GetMapping("api/products/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable  long id);
+    ResponseEntity<ProductResponse> getProductById(@PathVariable  long id);
 
 
 }

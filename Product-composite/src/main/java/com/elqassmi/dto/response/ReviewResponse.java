@@ -1,13 +1,13 @@
-package com.elqassmi.dto.request;
+package com.elqassmi.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class ReviewRequest {
+public class ReviewResponse {
     private long reviewId;
     private long productId;
     private String author;
