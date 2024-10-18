@@ -25,6 +25,26 @@ public class ProduitCompositeServicesImp implements ProduitCompositeServices{
     @Autowired
     private ReviewFeignClient reviewFeignClient;
 
+    @Override
+    public ResponseEntity<Void> addProduct(ProductRequest product) {
+        return productFeignClient.addProduct(product);
+    }
+
+    @Override
+    public void updateProduct(ProductRequest product, long productId) {
+        productFeignClient.updateProduct(product, productId);
+    }
+
+    @Override
+    public void deleteProduct(long id) {
+        productFeignClient.deleteProduct(id);
+    }
+
+    @Override
+    public List<ProductResponse> getAllProducts() {
+        return productFeignClient.getAllProducts();
+    }
+
     public ProductFullResponse getProductDetailsById(long id) {
         ProductFullResponse product = new ProductFullResponse();
 
@@ -55,28 +75,4 @@ public class ProduitCompositeServicesImp implements ProduitCompositeServices{
 
         return product;
     }
-
-
-
-
-    @Override
-    public ResponseEntity<Void> addProduct(ProductRequest product) {
-        return productFeignClient.addProduct(product);
-    }
-
-    @Override
-    public void updateProduct(ProductRequest product, long productId) {
-        productFeignClient.updateProduct(product, productId);
-    }
-
-    @Override
-    public void deleteProduct(long id) {
-        productFeignClient.deleteProduct(id);
-    }
-
-    @Override
-    public List<ProductResponse> getAllProducts() {
-        return productFeignClient.getAllProducts();
-    }
-
 }

@@ -11,13 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-
-
 @EnableFeignClients()
-
-//@EnableJpaRepositories("com.youssadi.dao")
-//@EntityScan("com.youssadi.domain")
-@ComponentScan({"com.elqassmi.controllers", "com.elqassmi.services"})
 public class ProductCompositeApplication {
 
 	public static void main(String[] args) {

@@ -56,6 +56,7 @@ public class ReviewServicesImp implements ReviewServices {
             reviewResponse.setSubject(rev.getSubject());
             reviewResponse.setProductId(rev.getProductId());
             reviewResponse.setReviewId(rev.getReviewId());
+            reviewResponse.setContent(rev.getContent());
 
             reviewResponses.add(reviewResponse);
         }
